@@ -38,6 +38,14 @@ The installation steps for the different packages/tools are given in the followi
 * vcflib - https://github.com/vcflib/vcflib
 
 R should be installed in the user system/PC. R installation steps are given in https://cran.r-project.org/.
+The following R packages are required for the prediction of drug resistance class:
+
+    install.packages("caret")
+    install.packages("reshape2")
+    install.packages("ggplot2")
+    install.packages("DALEX")
+    install.packages("RSNNS")
+
 
 ### Step 2: Install mcdr-mtb-standalone-v2
   #### I. Download the software from GitHub repository
