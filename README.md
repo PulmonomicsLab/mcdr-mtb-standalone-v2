@@ -61,7 +61,11 @@ R should be installed in the user system/PC. R installation steps are given in h
       sudo apt-get install wget
   #### II. Make the shell scripts executable
 
-    chmod +x INSTALLATION_DIR/mcdr-mtb-standalone-v2 config.sh mcdr-WGS-predict.sh mcdr-VCF-predict.sh mcdr-multi-VCF-predict.sh mcdr-merge-VCF-predict.sh
+    chmod +x INSTALLATION_DIR/mcdr-mtb-standalone-v2/config.sh
+    chmod +x INSTALLATION_DIR/mcdr-mtb-standalone-v2/mcdr-WGS-predict.sh
+    chmod +x INSTALLATION_DIR/mcdr-mtb-standalone-v2/mcdr-VCF-predict.sh
+    chmod +x INSTALLATION_DIR/mcdr-mtb-standalone-v2/mcdr-multi-VCF-predict.sh
+    chmod +x INSTALLATION_DIR/mcdr-mtb-standalone-v2/mcdr-merge-VCF-predict.sh
 
   `INSTALLATION_DIR` = Directory where mcdr-mtb-standalone-v2 is installed
   #### III. update the paths in config.sh (optional)
