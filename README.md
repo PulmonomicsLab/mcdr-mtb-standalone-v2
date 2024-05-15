@@ -43,7 +43,7 @@ R should be installed in the user system/PC. R installation steps are given in h
   #### I. Download the software from GitHub repository
    Create a clone of the repository:
 
-      git clone https://github.com/AbhirupaGhosh/mcdr-mtb-standalone-v2
+      git clone https://github.com/PulmonomicsLab/mcdr-mtb-standalone-v2
 
    **Note:** Creating a clone of the repository requires `git` to be installed.
 
@@ -54,7 +54,7 @@ R should be installed in the user system/PC. R installation steps are given in h
 
    Download using `wget`:
 
-      wget https://github.com/AbhirupaGhosh/mcdr-mtb-standalone-v2/archive/refs/heads/main.zip
+      wget https://github.com/PulmonomicsLab/mcdr-mtb-standalone-v2/archive/refs/heads/main.zip
       unzip main.zip
   **Note:** wget can be installed using
 
