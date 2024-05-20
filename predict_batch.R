@@ -101,12 +101,21 @@ cat("\n")
 
 write.table(output, file = paste0(output_path, "prediction.tsv"), row.names = FALSE)
 
+
+#### SHAP execution with 37 feature model ####
+
+gene_mutation_map <- read.csv(paste0(script_path, "mutation_gene_map.tsv"), sep="\t", row.names = "Mutation")
+
 suppressPackageStartupMessages(library(DALEX, quietly = TRUE))
 
 explainer_f <- readRDS(paste0(script_path, "explainer_mlp_37.rds"))
 for(i in 1:length(pred_bat)){
   shap_MLP_f <- predict_parts_shap(explainer_f, new_observation = data_2_bat[i,], B = 25)
 #   print(colnames(shap_MLP_f))
+  for (j in 1:nrow(shap_MLP_f)) {
+    shap_MLP_f[j, "variable_name"] <- paste0(shap_MLP_f[j, "variable_name"], " (", gene_mutation_map[shap_MLP_f$variable_name[j], "Gene"], ")")
+    shap_MLP_f[j, "variable"] <- paste0(shap_MLP_f[j, "variable_name"], " = ", shap_MLP_f[j, "variable_value"])
+  }
 
   pred_label <- paste0("MLP.", pred_bat[i])
   shap_MLP_class_f <- shap_MLP_f[shap_MLP_f$label == pred_label & shap_MLP_f$variable_value > 0 & shap_MLP_f$variable_name != "CATEGORY", ]
@@ -127,10 +136,16 @@ for(i in 1:length(pred_bat)){
   ggsave(file = paste0(output_path, "shap_plot_37_features_", Ind_batch_l$SAMPLE[i], ".svg"), plot = shap_MLP_f_plot)
 }
 
+#### SHAP execution with 100 feature model ####
+
 explainer_f <- readRDS(paste0(script_path, "explainer_mlp_100.rds"))
 for(i in 1:length(pred_bat)){
   shap_MLP_f <- predict_parts_shap(explainer_f, new_observation = data_2_bat[i, ], B = 25)
 #   print(colnames(shap_MLP_f))
+  for (j in 1:nrow(shap_MLP_f)) {
+    shap_MLP_f[j, "variable_name"] <- paste0(shap_MLP_f[j, "variable_name"], " (", gene_mutation_map[shap_MLP_f$variable_name[j], "Gene"], ")")
+    shap_MLP_f[j, "variable"] <- paste0(shap_MLP_f[j, "variable_name"], " = ", shap_MLP_f[j, "variable_value"])
+  }
 
   pred_label <- paste0("MLP.", pred_bat[i])
   shap_MLP_class_f <- shap_MLP_f[shap_MLP_f$label == pred_label & shap_MLP_f$variable_value > 0 & shap_MLP_f$variable_name != "CATEGORY",]

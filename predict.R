@@ -108,11 +108,19 @@ write.table(out, file = paste0(output_path, "prediction.tsv"), row.names = FALSE
 
 #### SHAP execution with 37 feature model ####
 
+gene_mutation_map <- read.csv(paste0(script_path, "mutation_gene_map.tsv"), sep="\t", row.names = "Mutation")
+
 suppressPackageStartupMessages(library(DALEX, quietly = TRUE))
 
 explainer_f <- readRDS(paste0(script_path, "explainer_mlp_37.rds"))
 shap_MLP_f <- predict_parts_shap(explainer_f, new_observation = data_2, B = 25)
 # print(colnames(shap_MLP_f))
+for (i in 1:nrow(shap_MLP_f)) {
+#   genes <- c(genes, gene_mutation_map[shap_MLP_f$variable_name[i], "Gene"])
+  shap_MLP_f[i, "variable_name"] <- paste0(shap_MLP_f[i, "variable_name"], " (", gene_mutation_map[shap_MLP_f$variable_name[i], "Gene"], ")")
+  shap_MLP_f[i, "variable"] <- paste0(shap_MLP_f[i, "variable_name"], " = ", shap_MLP_f[i, "variable_value"])
+}
+# print(shap_MLP_f[, "variable"])
 
 pred_label <- paste0("MLP.", pred_mlp_ind)
 shap_MLP_class_f <- shap_MLP_f[shap_MLP_f$label == pred_label & shap_MLP_f$variable_value > 0 & shap_MLP_f$variable_name != "CATEGORY",]
@@ -138,6 +146,10 @@ ggsave(file = paste0(output_path, "shap_plot_37_features_", Ind_l$SAMPLE, ".svg"
 explainer_f <- readRDS(paste0(script_path, "explainer_mlp_100.rds"))
 shap_MLP_f <- predict_parts_shap(explainer_f, new_observation = data_2, B = 25)
 # print(colnames(shap_MLP_f))
+for (i in 1:nrow(shap_MLP_f)) {
+  shap_MLP_f[i, "variable_name"] <- paste0(shap_MLP_f[i, "variable_name"], " (", gene_mutation_map[shap_MLP_f$variable_name[i], "Gene"], ")")
+  shap_MLP_f[i, "variable"] <- paste0(shap_MLP_f[i, "variable_name"], " = ", shap_MLP_f[i, "variable_value"])
+}
 
 pred_label <- paste0("MLP.", pred_mlp_ind)
 shap_MLP_class_f <- shap_MLP_f[shap_MLP_f$label == pred_label & shap_MLP_f$variable_value > 0 & shap_MLP_f$variable_name != "CATEGORY",]
