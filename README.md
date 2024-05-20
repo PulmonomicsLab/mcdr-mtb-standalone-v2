@@ -91,7 +91,7 @@ The following R packages are required for the prediction of drug resistance clas
 	bwa_mem_cores=4
 	samtools_cores=4
 
-Note: It shows the default paths of the executables files for `freebayes`, `samtools`, `bwa`, `trim galore!`, `vcflib`, `bgzip` and `bcftools`. The users need to update the paths of the executables, in case these tools were installed in ways other than the `apt-get install` command. 
+Note: It shows the default paths of the executables files for `freebayes`, `samtools`, `bwa`, `trim galore!`, `vcflib`, `bgzip` and `bcftools`. The users need to update the paths of the executables, in case these tools were installed in ways other than the `apt-get install` command.
 
 ## Usage
 
@@ -123,8 +123,8 @@ The executable script, and contents of `INPUT_DIR` and `OUTPUT_DIR` depends on t
 * the prediction result performed with the full model (prediction.tsv)
 * the SHAP result for each isolate with the 37-feature model (shap_result_37_features_*<sample_id>*.tsv)
 * the SHAP result for each isolate with the 100-feature model (shap_result_100_features_*<sample_id>*.tsv)
-* the SHAP result plot for each isolate with the 37-feature model (shap_plot_37_features_*<sample_id>*.tsv)
-* the SHAP result plot for each isolate with the 100-feature model (shap_plot_100_features_*<sample_id>*.tsv)
+* the SHAP result plot for each isolate with the 37-feature model (shap_plot_37_features_*<sample_id>*.svg)
+* the SHAP result plot for each isolate with the 100-feature model (shap_plot_100_features_*<sample_id>*.svg)
 
 **Note:** The merged.vcf file will not be present if there was only one isolate in the INPUT_DIR. <br/>
 The prediction and the SHAP results output will also be displayed on the terminal.
@@ -143,8 +143,8 @@ The prediction and the SHAP results output will also be displayed on the termina
 * the prediction result performed with the full model (prediction.tsv)
 * the SHAP result for the isolate with the 37-feature model (shap_result_37_features_*<sample_id>*.tsv)
 * the SHAP result for the isolate with the 100-feature model (shap_result_100_features_*<sample_id>*.tsv)
-* the SHAP result plot for the isolate with the 37-feature model (shap_plot_37_features_*<sample_id>*.tsv)
-* the SHAP result plot for the isolate with the 100-feature model (shap_plot_100_features_*<sample_id>*.tsv)
+* the SHAP result plot for the isolate with the 37-feature model (shap_plot_37_features_*<sample_id>*.svg)
+* the SHAP result plot for the isolate with the 100-feature model (shap_plot_100_features_*<sample_id>*.svg)
 
 The prediction and the SHAP results output will also be displayed on the terminal.
 
@@ -163,8 +163,8 @@ The prediction and the SHAP results output will also be displayed on the termina
 * the prediction result performed with the full model (prediction.tsv)
 * the SHAP result for each isolate with the 37-feature model (shap_result_37_features_*<sample_id>*.tsv)
 * the SHAP result for each isolate with the 100-feature model (shap_result_100_features_*<sample_id>*.tsv)
-* the SHAP result plot for each isolate with the 37-feature model (shap_plot_37_features_*<sample_id>*.tsv)
-* the SHAP result plot for each isolate with the 100-feature model (shap_plot_100_features_*<sample_id>*.tsv)
+* the SHAP result plot for each isolate with the 37-feature model (shap_plot_37_features_*<sample_id>*.svg)
+* the SHAP result plot for each isolate with the 100-feature model (shap_plot_100_features_*<sample_id>*.svg)
 
 The prediction and the SHAP results output will also be displayed on the terminal.
 
@@ -182,18 +182,17 @@ The prediction and the SHAP results output will also be displayed on the termina
 * the prediction result performed with the full model (prediction.tsv)
 * the SHAP result for each isolate with the 37-feature model (shap_result_37_features_*<sample_id>*.tsv)
 * the SHAP result for each isolate with the 100-feature model (shap_result_100_features_*<sample_id>*.tsv)
-* the SHAP result plot for each isolate with the 37-feature model (shap_plot_37_features_*<sample_id>*.tsv)
-* the SHAP result plot for each isolate with the 100-feature model (shap_plot_100_features_*<sample_id>*.tsv)
+* the SHAP result plot for each isolate with the 37-feature model (shap_plot_37_features_*<sample_id>*.svg)
+* the SHAP result plot for each isolate with the 100-feature model (shap_plot_100_features_*<sample_id>*.svg)
 
 The prediction and the SHAP results output will also be displayed on the terminal.
- 
+
 ----
 
 
 ## Demo runs
 
-### 1. Prediction from FASTQ
-#### a. Single isolate
+### 1. Prediction from FASTQ (Single isolate)
 
   Step 1. Create an Input directory
 
@@ -204,7 +203,7 @@ The prediction and the SHAP results output will also be displayed on the termina
   Download the whole genome sequencing FASTQ files of a MTB isolate run, ERR137249 (ERR137249_1.fastq & ERR137249_2.fastq) from https://www.ebi.ac.uk/ena/browser/view/ERR137249
 
   Step 3. Store these files in `Input_Dir1`
- 
+
   Step 4. Create an Output directory
 
    	   mkdir /home/username/Output_Dir1
@@ -217,30 +216,26 @@ The prediction and the SHAP results output will also be displayed on the termina
 
    	   ./mcdr-WGS-predict.sh /home/username/Input_Dir1/ /home/username/Output_Dir1/
 
-`Input_Dir1` contains ERR137249_1.fastq, ERR137249_2.fastq
+`Input_Dir1` contains `ERR137249_1.fastq`, `ERR137249_2.fastq`
 
 `Output_Dir1` contains -
-* Folder - ERR137249
-* ERR137249.tsv
+* A folder - `ERR137249` - which contains:
+	* reference folder - reference genome and index files
+	* Trim galore outputs - `ERR137249_1_val_1.fq.gz`, `ERR137249_2_val_2.fq.gz`, `ERR137249_1_trimming_report.txt`, `ERR137249_2_trimming_report.txt`
+	* Bwa-mem output - `ERR137249.bam`
+	* Intermediate BAM files - `ERR137249_fix.bam`, `ERR137249_namesort.bam`, `ERR137249_positionsort.bam`, `ERR137249_markdup.bam`
+	* BAM index - `ERR137249.bam.bai`
+	* Freebayes output - `ERR137249.vcf`
+	* VCF compressed - `ERR137249.vcf.gz`
+	* VCF index - `ERR137249.vcf.gz.csi`
+* `ERR137249.tsv` - the intermediate TSV file
+* `prediction.tsv` - the prediction result performed with the full model
+* `shap_result_37_features_ERR137249.tsv` - the SHAP result for ERR137249 with the 37-feature model
+* `shap_result_100_features_ERR137249.tsv` - the SHAP result for ERR137249 with the 100-feature model
+* `shap_plot_37_features_ERR137249.svg` - the SHAP result plot for ERR137249 with the 37-feature model
+* `shap_plot_100_features_ERR137249.svg` - the SHAP result plot for ERR137249 with the 100-feature model
 
-The ERR137249 folder contains -
-
-* reference folder - reference genome and index files
-* Trim galore outputs - ERR137249_1_val_1.fq.gz, ERR137249_2_val_2.fq.gz, ERR137249_1_trimming_report.txt, ERR137249_2_trimming_report.txt
-* Bwa-mem output - ERR137249.bam
-* Intermediate BAM files - ERR137249_fix.bam, ERR137249_namesort.bam, ERR137249_positionsort.bam, ERR137249_markdup.bam
-* BAM index - ERR137249.bam.bai
-* Freebayes output - ERR137249.vcf
-* VCF compressed - ERR137249.vcf.gz
-* VCF index - ERR137249.vcf.gz.csi
-
-Printed Output -
-
-```
-ISOLATE PREDICTION   	DIFF RI
-1  ERR137249  		S 0.04866350  0
-```
-#### b. Multiple isolates
+### 2. Prediction from FASTQ (Multiple isolates)
 
   Step 1. Create an Input directory
 
@@ -251,7 +246,7 @@ ISOLATE PREDICTION   	DIFF RI
 Download the whole genome sequencing FASTQ files of MTB ISOLATE runs, ERR137249 (ERR137249_1.fastq & ERR137249_2.fastq) and SRR1103491 (SRR1103491_1.fastq & SRR1103491_2.fastq) from https://www.ebi.ac.uk/ena/browser/view/ERR137249 and https://www.ebi.ac.uk/ena/browser/view/SRR1103491
 
   Step 3. Store these files in `Input_Dir2`
- 
+
   Step 4. Create an Output directory
 
     mkdir /home/username/Output_Dir2
@@ -264,31 +259,31 @@ Download the whole genome sequencing FASTQ files of MTB ISOLATE runs, ERR137249 
 
     ./mcdr-WGS-predict.sh /home/username/Input_Dir1/ /home/username/Output_Dir2/
 
-`Input_Dir2` contains ERR137249_1.fastq, ERR137249_2.fastq, SRR1103491_1.fastq, SRR1103491_2.fastq
+`Input_Dir2` contains `ERR137249_1.fastq`, `ERR137249_2.fastq`, `SRR1103491_1.fastq`, `SRR1103491_2.fastq`
 
 `Output_Dir2` contains -
-* Two folders - ERR137249, SRR1103491
-* merged.vcf
-* merged.tsv
+* Two folders - `ERR137249`, `SRR1103491` - each containing:
+	* reference folder - reference genome and index files
+	* Trim galore outputs - `ISOLATENAME_1_val_1.fq.gz`, `ISOLATENAME_2_val_2.fq.gz`, `ISOLATENAME_1_trimming_report.txt`, `ISOLATENAME_2_trimming_report.txt`
+	* Bwa-mem output - `ISOLATENAME.bam`
+	* Intermediate BAM files - `ISOLATENAME_fix.bam`, `ISOLATENAME_namesort.bam`, `ISOLATENAME_positionsort.bam`, `ISOLATENAME_markdup.bam`
+	* BAM index - `ISOLATENAME.bam.bai`
+	* Freebayes output - `ISOLATENAME.vcf`
+	* VCF compressed - `ISOLATENAME.vcf.gz`
+	* VCF index - `ISOLATENAME.vcf.gz.csi`
+* `merged.vcf`
+* `merged.tsv` - the intermediate TSV file
+* `prediction.tsv` - the prediction result performed with the full model
+* `shap_result_37_features_ERR137249.tsv` - the SHAP result for ERR137249 with the 37-feature model
+* `shap_result_100_features_ERR137249.tsv` - the SHAP result for ERR137249 with the 100-feature model
+* `shap_plot_37_features_ERR137249.svg` - the SHAP result plot for ERR137249 with the 37-feature model
+* `shap_plot_100_features_ERR137249.svg` - the SHAP result plot for ERR137249 with the 100-feature model
+* `shap_result_37_features_SRR1103491.tsv` - the SHAP result for SRR1103491 with the 37-feature model
+* `shap_result_100_features_SRR1103491.tsv` - the SHAP result for SRR1103491 with the 100-feature model
+* `shap_plot_37_features_SRR1103491.svg` - the SHAP result plot for SRR1103491 with the 37-feature model
+* `shap_plot_100_features_SRR1103491.svg` - the SHAP result plot for SRR1103491 with the 100-feature model
 
-Each of the ERR137249 and SRR1103491 named folder contains -
-
-* reference folder - reference genome and index files
-* Trim galore outputs - ISOLATENAME_1_val_1.fq.gz, ISOLATENAME_2_val_2.fq.gz, ISOLATENAME_1_trimming_report.txt, ISOLATENAME_2_trimming_report.txt
-* Bwa-mem output - ISOLATENAME.bam
-* Intermediate BAM files - ISOLATENAME_fix.bam, ISOLATENAME_namesort.bam, ISOLATENAME_positionsort.bam, ISOLATENAME_markdup.bam
-* BAM index - ISOLATENAME.bam.bai
-* Freebayes output - ISOLATENAME.vcf
-* VCF compressed - ISOLATENAME.vcf.gz
-* VCF index - ISOLATENAME.vcf.gz.csi
-
-Printed Output -
-```
-ISOLATE PREDICTION   	DIFF RI
-1 ERR137249  		S 0.04866350  0
-2 SRR1103491  		M 0.02846038  0
-```
-### 2. Prediction from single VCF
+### 3. Prediction from single VCF
 
   Step 1. Create an Input directory
 
@@ -308,16 +303,17 @@ ISOLATE PREDICTION   	DIFF RI
 
     ./mcdr-VCF-predict.sh /home/username/Input_Dir3/ /home/username/Output_Dir3/
 
-`Input_Dir3` contains ERR137249.vcf
+`Input_Dir3` contains `ERR137249.vcf`
 
-`Output_Dir3` contains - ERR137249.tsv
+`Output_Dir3` contains - 
+* `ERR137249.tsv` - the intermediate TSV file
+* `prediction.tsv` - the prediction result performed with the full model
+* `shap_result_37_features_ERR137249.tsv` - the SHAP result for ERR137249 with the 37-feature model
+* `shap_result_100_features_ERR137249.tsv` - the SHAP result for ERR137249 with the 100-feature model
+* `shap_plot_37_features_ERR137249.svg` - the SHAP result plot for ERR137249 with the 37-feature model
+* `shap_plot_100_features_ERR137249.svg` - the SHAP result plot for ERR137249 with the 100-feature model
 
- Printed Output -
-```
-ISOLATE PREDICTION   	DIFF RI
-1  ERR137249  		S 0.04866350  0
-```
-### 3. Prediction from multiple VCFs
+### 4. Prediction from multiple VCFs
 
   Step 1. Create an Input directory
 
@@ -337,22 +333,24 @@ ISOLATE PREDICTION   	DIFF RI
 
     ./mcdr-multi-VCF-predict.sh /home/username/Input_Dir4/ /home/username/Output_Dir4/
 
-`Input_Dir4` contains ERR137249.vcf, SRR1103491.vcf
+`Input_Dir4` contains `ERR137249.vcf`, `SRR1103491.vcf`
 
 `Output_Dir4` contains -
-  * Compressed VCFs - ERR137249.vcf.gz and SRR1103491.vcf.gz
-  * VCF indices - ERR137249.vcf.gz.csi and SRR1103491.vcf.gz.csi
-  * Merged.vcf
-  * Merged.tsv
+* Compressed VCFs - `ERR137249.vcf.gz` and `SRR1103491.vcf.gz`
+* VCF indices - `ERR137249.vcf.gz.csi` and `SRR1103491.vcf.gz.csi`
+* `merged.vcf`
+* `merged.tsv` - the intermediate TSV file
+* `prediction.tsv` - the prediction result performed with the full model
+* `shap_result_37_features_ERR137249.tsv` - the SHAP result for ERR137249 with the 37-feature model
+* `shap_result_100_features_ERR137249.tsv` - the SHAP result for ERR137249 with the 100-feature model
+* `shap_plot_37_features_ERR137249.svg` - the SHAP result plot for ERR137249 with the 37-feature model
+* `shap_plot_100_features_ERR137249.svg` - the SHAP result plot for ERR137249 with the 100-feature model
+* `shap_result_37_features_SRR1103491.tsv` - the SHAP result for SRR1103491 with the 37-feature model
+* `shap_result_100_features_SRR1103491.tsv` - the SHAP result for SRR1103491 with the 100-feature model
+* `shap_plot_37_features_SRR1103491.svg` - the SHAP result plot for SRR1103491 with the 37-feature model
+* `shap_plot_100_features_SRR1103491.svg` - the SHAP result plot for SRR1103491 with the 100-feature model
 
-Printed Output -
-```
-ISOLATE PREDICTION   	DIFF RI
-1 ERR137249  		S 0.04866350  0
-2 SRR1103491  		M 0.02846038  0
-```
-
-### 4. Prediction from merged VCFs
+### 5. Prediction from merged VCFs
 
   Step 1. Create an Input directory
 
@@ -372,18 +370,23 @@ ISOLATE PREDICTION   	DIFF RI
 
     ./mcdr-merge-predict.sh /home/username/Input_Dir5/ /home/username/Output_Dir5/
 
-`Input_Dir5` contains merged.vcf
-`Output_Dir5` contains Merged.tsv
+`Input_Dir5` contains `merged.vcf`
 
-Printed Output -
-```
-ISOLATE PREDICTION   	DIFF RI
-1 ERR137249  		S 0.04866350  0
-2 SRR1103491  		M 0.02846038  0
-```
+`Output_Dir5` contains -
+* `merged.tsv` - the intermediate TSV file
+* `prediction.tsv` - the prediction result performed with the full model
+* `shap_result_37_features_ERR137249.tsv` - the SHAP result for ERR137249 with the 37-feature model
+* `shap_result_100_features_ERR137249.tsv` - the SHAP result for ERR137249 with the 100-feature model
+* `shap_plot_37_features_ERR137249.svg` - the SHAP result plot for ERR137249 with the 37-feature model
+* `shap_plot_100_features_ERR137249.svg` - the SHAP result plot for ERR137249 with the 100-feature model
+* `shap_result_37_features_SRR1103491.tsv` - the SHAP result for SRR1103491 with the 37-feature model
+* `shap_result_100_features_SRR1103491.tsv` - the SHAP result for SRR1103491 with the 100-feature model
+* `shap_plot_37_features_SRR1103491.svg` - the SHAP result plot for SRR1103491 with the 37-feature model
+* `shap_plot_100_features_SRR1103491.svg` - the SHAP result plot for SRR1103491 with the 100-feature model
+
 ## Team
 
-**Abhirupa Ghosh, Sudipto Bhattacharjee and Sudipto Saha**
+**Abhirupa Ghosh, Sudipto Bhattacharjee, and Sudipto Saha**
 
 ## Disclaimer
 
