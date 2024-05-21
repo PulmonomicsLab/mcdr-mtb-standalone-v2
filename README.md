@@ -2,6 +2,23 @@
 ## Introduction
 **mcdr-mtb-standalone-v2** is a pipeline for prediction of drug resistance class **(MDR, Pre-XDR, XDR or Susceptible)** of *Mycobacterium tuberculosis* isolates from whole genome sequencing **(WGS)** data. The users can start with paired-end FASTQ files or variant calling output VCF files.
 
+* [Workflows](#workflows)
+* [Pre-requisites](#pre-requisites)
+* [Installation](#installation)
+* [Usage](#usage)
+  * [1. Prediction of drug resistance class of one or many MTB paired-end FASTQ files](#1-prediction-of-drug-resistance-class-of-one-or-many-mtb-paired-end-fastq-files)
+  * [2. Prediction of drug resistance class of a single MTB VCF file](#2-prediction-of-drug-resistance-class-of-a-single-mtb-vcf-file)
+  * [3. Prediction of drug resistance class of multiple MTB VCF files](#3-prediction-of-drug-resistance-class-of-multiple-mtb-vcf-files)
+  * [4. Prediction of drug resistance class of merged MTB VCF file](#4-prediction-of-drug-resistance-class-of-merged-mtb-vcf-file)
+* [Demo runs](#demo-runs)
+  * [1. Prediction from FASTQ (Single isolate)](#1-prediction-from-fastq-single-isolate)
+  * [2. Prediction from FASTQ (Multiple isolates)](#2-prediction-from-fastq-multiple-isolates)
+  * [3. Prediction from single VCF](#3-prediction-from-single-vcf)
+  * [4. Prediction from multiple VCFs](#4-prediction-from-multiple-vcfs)
+  * [5. Prediction from merged VCFs](#5-prediction-from-merged-vcfs)
+* [Team](#team)
+* [Disclaimer](#disclaimer)
+
 ## Workflows
 
 There are 4 different scripts for prediction:
@@ -12,13 +29,13 @@ There are 4 different scripts for prediction:
 
 ## Pre-requisites
 * trim-galore (version `0.6.7`) - quality check and trimming of read sequences
-* bwa (`0.7.17-r1188`) - reference based alignment
-* samtools (`1.13`)- processing the BAM files
-* freebayes (`v1.3.6`) - variant calling
-* libvcflib-tools (`1.0.7`) - processing the VCF files
-* libvcflib-dev (`1.0.7`)	- processing the VCF files
-* bgzip (`1.13+ds`) - zipping files
-* R (`4.2.2 Patched (2022-11-10 r83330)`) - data operation and machine learning model usage
+* bwa (version `0.7.17-r1188`) - reference based alignment
+* samtools (version `1.13`)- processing the BAM files
+* freebayes (version `v1.3.6`) - variant calling
+* libvcflib-tools (version `1.0.7`) - processing the VCF files
+* libvcflib-dev (version `1.0.7`)	- processing the VCF files
+* bgzip (version `1.13+ds`) - zipping files
+* R (version `4.2.2 Patched (2022-11-10 r83330)`) - data operation and machine learning model usage
 
 
 ## Installation
@@ -46,7 +63,7 @@ The following R packages are required for the prediction of drug resistance clas
     install.packages("DALEX")
     install.packages("RSNNS")
 
-
+----
 ### Step 2: Install mcdr-mtb-standalone-v2
   #### I. Download the software from GitHub repository
    Create a clone of the repository:
@@ -67,6 +84,9 @@ The following R packages are required for the prediction of drug resistance clas
   **Note:** wget can be installed using
 
       sudo apt-get install wget
+  
+  <br>
+  
   #### II. Make the shell scripts executable
 
     chmod +x INSTALLATION_DIR/mcdr-mtb-standalone-v2/config.sh
@@ -76,6 +96,9 @@ The following R packages are required for the prediction of drug resistance clas
     chmod +x INSTALLATION_DIR/mcdr-mtb-standalone-v2/mcdr-merge-VCF-predict.sh
 
   `INSTALLATION_DIR` = Directory where mcdr-mtb-standalone-v2 is installed
+  
+  <br>
+  
   #### III. update the paths in config.sh (optional)
 
   The `config.sh` looks like
@@ -107,7 +130,7 @@ Different operations can be performed by calling the appropriate scripts with tw
 
 The executable script, and contents of `INPUT_DIR` and `OUTPUT_DIR` depends on the choice of operations. The different operations are explained below.
 
-### 1) Prediction of drug resistance class of one or many MTB paired-end FASTQ files.
+### 1. Prediction of drug resistance class of one or many MTB paired-end FASTQ files
 **(*.fastq* to drug resistance class (S, M, P, X))**
 
     ./mcdr-WGS-predict.sh INPUT_DIR OUTPUT_DIR
@@ -131,7 +154,7 @@ The prediction and the SHAP results output will also be displayed on the termina
 
 ----
 
-### 2) Prediction of drug resistance class of a single MTB VCF file.
+### 2. Prediction of drug resistance class of a single MTB VCF file
 **(.vcf to drug resistance class (S, M, P, X))**
 
     ./mcdr-VCF-predict.sh INPUT_DIR OUTPUT_DIR
@@ -150,7 +173,7 @@ The prediction and the SHAP results output will also be displayed on the termina
 
 ----
 
-### 3) Prediction of drug resistance class of multiple MTB VCF files.
+### 3. Prediction of drug resistance class of multiple MTB VCF files
 **(multiple .vcf to drug resistance class (S, M, P, X))**
 
     ./mcdr-multi-VCF-predict.sh INPUT_DIR OUTPUT_DIR
@@ -170,7 +193,7 @@ The prediction and the SHAP results output will also be displayed on the termina
 
 ----
 
-### 4) Prediction of drug resistance class of merged MTB VCF file.
+### 4. Prediction of drug resistance class of merged MTB VCF file
 **(merged.vcf to drug resistance class (S, M, P, X))**
 
     ./mcdr-merge-VCF-predict.sh INPUT_DIR OUTPUT_DIR
@@ -210,7 +233,7 @@ The prediction and the SHAP results output will also be displayed on the termina
 
   Step 5. Go to the mcdr-mtb-standalone-v2 installation directory
 
-   	   cd /home/username/Documents/mcdr-mtb-standalone-v2/
+   	   cd /home/username/mcdr-mtb-standalone-v2/
 
   Step 6. Run mcdr-WGS-predict.sh
 
@@ -235,6 +258,7 @@ The prediction and the SHAP results output will also be displayed on the termina
 * `shap_plot_37_features_ERR137249.svg` - the SHAP result plot for ERR137249 with the 37-feature model
 * `shap_plot_100_features_ERR137249.svg` - the SHAP result plot for ERR137249 with the 100-feature model
 
+----
 ### 2. Prediction from FASTQ (Multiple isolates)
 
   Step 1. Create an Input directory
@@ -253,7 +277,7 @@ Download the whole genome sequencing FASTQ files of MTB ISOLATE runs, ERR137249 
 
   Step 5. Go to the mcdr-mtb-standalone-v2 installation directory
 
-    cd /home/username/Documents/mcdr-mtb-standalone-v2/
+    cd /home/username/mcdr-mtb-standalone-v2/
 
   Step 6. Run mcdr-WGS-predict.sh
 
@@ -283,6 +307,7 @@ Download the whole genome sequencing FASTQ files of MTB ISOLATE runs, ERR137249 
 * `shap_plot_37_features_SRR1103491.svg` - the SHAP result plot for SRR1103491 with the 37-feature model
 * `shap_plot_100_features_SRR1103491.svg` - the SHAP result plot for SRR1103491 with the 100-feature model
 
+----
 ### 3. Prediction from single VCF
 
   Step 1. Create an Input directory
@@ -297,7 +322,7 @@ Download the whole genome sequencing FASTQ files of MTB ISOLATE runs, ERR137249 
 
   Step 4. Go to the mcdr-mtb-standalone-v2 installation directory
 
-    cd /home/username/Documents/mcdr-mtb-standalone-v2/
+    cd /home/username/mcdr-mtb-standalone-v2/
 
   Step 5. Run mcdr-VCF-predict.sh
 
@@ -313,6 +338,7 @@ Download the whole genome sequencing FASTQ files of MTB ISOLATE runs, ERR137249 
 * `shap_plot_37_features_ERR137249.svg` - the SHAP result plot for ERR137249 with the 37-feature model
 * `shap_plot_100_features_ERR137249.svg` - the SHAP result plot for ERR137249 with the 100-feature model
 
+----
 ### 4. Prediction from multiple VCFs
 
   Step 1. Create an Input directory
@@ -327,7 +353,7 @@ Download the whole genome sequencing FASTQ files of MTB ISOLATE runs, ERR137249 
 
   Step 4. Go to the mcdr-mtb-standalone-v2 installation directory
 
-    cd /home/username/Documents/mcdr-mtb-standalone-v2/
+    cd /home/username/mcdr-mtb-standalone-v2/
 
   Step 5. Run mcdr-multi-VCF-predict.sh
 
@@ -350,6 +376,7 @@ Download the whole genome sequencing FASTQ files of MTB ISOLATE runs, ERR137249 
 * `shap_plot_37_features_SRR1103491.svg` - the SHAP result plot for SRR1103491 with the 37-feature model
 * `shap_plot_100_features_SRR1103491.svg` - the SHAP result plot for SRR1103491 with the 100-feature model
 
+----
 ### 5. Prediction from merged VCFs
 
   Step 1. Create an Input directory
@@ -364,7 +391,7 @@ Download the whole genome sequencing FASTQ files of MTB ISOLATE runs, ERR137249 
 
   Step 4. Go to the mcdr-mtb-standalone-v2 installation directory
 
-    cd /home/username/Documents/mcdr-mtb-standalone-v2/
+    cd /home/username/mcdr-mtb-standalone-v2/
 
   Step 5. Run mcdr-merge-predict.sh
 
